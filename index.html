@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Happy Valentine's Day</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Press Start 2P', monospace;
+            text-align: center;
+            background: url('https://64.media.tumblr.com/b62f1eb434fa279e344cce6f060094c9/e636f3d6939fd930-f8/s660x432/fd876d68da8478345ef01e3cc93d540004533d32.gif') no-repeat center center fixed;
+            background-size: cover;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: -1;
+        }
+
+        .falling-stickers {
+            position: fixed;
+            top: -10px;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sticker {
+            position: absolute;
+            font-size: 25px;
+            animation: fall 8s linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* TAMPILAN AWAL - Gambar Surat Tertutup */
+        .envelope {
+            width: 320px;
+            height: 220px;
+            background: url('https://lh3.googleusercontent.com/d/15Gfay75GFXzWttsTyVPeuF8y7EfPNl8w') no-repeat center center;
+            background-size: cover;
+            border: 5px solid white;
+            border-radius: 15px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            transition: 0.3s;
+            z-index: 10;
+            padding-bottom: 20px;
+        }
+
+        .envelope span {
+            background: rgba(18, 179, 44, 0.9);
+            color: white;
+            padding: 8px 12px;
+            font-size: 9px;
+            border-radius: 8px;
+            border: 2px solid white;
+            line-height: 1.6;
+        }
+
+        .envelope:hover { transform: scale(1.05); }
+
+        /* BOX PERTANYAAN DAN SURAT AKHIR */
+        .container, .letter {
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            border: 4px solid rgba(18, 179, 44, 0.9);
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+            display: none;
+            z-index: 5;
+        }
+
+        .question { font-size: 18px; color: rgba(18, 179, 44, 0.9); line-height: 1.6; margin-bottom: 20px; }
+
+        button {
+            padding: 15px 20px;
+            margin: 10px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        #yesBtn { background: rgba(18, 179, 44, 0.9); color: white; }
+        #noBtn { background: #555; color: white; position: relative; }
+
+        .letter img,
+        .letter iframe {
+            width: 100%;
+            border-radius: 10px;
+            border: 3px solid rgba(18, 179, 44, 0.9);
+            margin: 10px 0;
+        }
+        .letter-embed {
+            width: 100%;
+            min-height: 220px;
+            aspect-ratio: 16/9;
+            border-radius: 10px;
+            border: 3px solid rgba(18, 179, 44, 0.9);
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+        .letter-body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.2;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        #message {
+            margin-top: 20px;
+            color: rgba(18, 179, 44, 0.9);
+            font-size: 12px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="falling-stickers" id="stickersContainer"></div>
+
+    <div class="envelope" id="envelope">
+        <span>Letter for Linaa 💌<br>Click to Open</span>
+    </div>
+
+    <div class="container" id="container">
+        <div class="tenor-gif-embed" data-postid="8463479231329939420" data-share-method="host" data-aspect-ratio="1.0" data-width="100%"></div>
+        <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
+        <p class="question">Can I be your Valentine? 🍃</p>
+        <button id="yesBtn">Boleh!</button>
+        <button id="noBtn">Enggak</button>
+        <div id="message">Happy Valentine ❤️</div>
+    </div>
+
+    <div class="letter" id="letter">
+        <h2 style="color: #0eb419; font-size: 16px;">Happy Valentine! 🍃</h2>
+        <img src="https://pixeljoint.com/files/icons/full/cocefibookkeepersgarden.gif" alt="Pixel art garden">
+        <p font-size: 8px; class="letter-body">katanya hari ini valentine, Jadi terimakasih sudah jadi teman buat bertukar cerita, saling support, dan tetap menghargai kerentanan masing-masing. Semoga kedepannya kita bisa lebih baik lagi yaa, te quiero Lina ✨</p>
+        <a href="https://tsaboy.github.io/pomodoro-timer/" target="_blank" rel="noopener" style="color:#ff69b4;">Ada something lagi, Klik disini!</a>
+    </div>
+
+    <script>
+        const items = ['🐸', '✨', '🌹', '🍃', '🎶'];
+        function createSticker() {
+            const s = document.createElement('div');
+            s.className = 'sticker';
+            s.innerHTML = items[Math.floor(Math.random()*items.length)];
+            s.style.left = Math.random() * 100 + 'vw';
+            s.style.animationDuration = (Math.random()*3 + 5) + 's';
+            document.getElementById('stickersContainer').appendChild(s);
+            setTimeout(() => s.remove(), 7000);
+        }
+        setInterval(createSticker, 400);
+
+        const env = document.getElementById('envelope');
+        const cont = document.getElementById('container');
+        const lett = document.getElementById('letter');
+        const no = document.getElementById('noBtn');
+        const yes = document.getElementById('yesBtn');
+
+        // Buka surat
+        env.addEventListener('click', () => {
+            env.style.display = 'none'; 
+            cont.style.display = 'block';
+        });
+
+        // Tombol No kabur
+        no.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 100);
+            no.style.position = 'fixed';
+            no.style.left = x + 'px';
+            no.style.top = y + 'px';
+            no.textContent = "Eh bolehh!!";
+        });
+
+        function showLetter() {
+            document.getElementById('message').style.display = 'block';
+            setTimeout(() => {
+                cont.style.display = 'none';
+                lett.style.display = 'block';
+            }, 2000);
+        }
+
+        // Klik Yes
+        yes.addEventListener('click', showLetter);
+        // Clicking No (when it says "Hellll Yeaaahh!!!") also proceeds
+        no.addEventListener('click', showLetter);
+    </script>
+</body>
+</html>
